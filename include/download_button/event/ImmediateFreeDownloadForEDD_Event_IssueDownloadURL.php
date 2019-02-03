@@ -2,8 +2,8 @@
 /**
  * Immediate Free Download for Easy Digital Downloads
  *
- * [PROGRAM_URI]
- * Copyright (c) <COPYRIGHT_YEARS> Michael Uno
+ * https://github.com/michaeluno/immediate-free-download-for-easy-digital-downloads
+ * Copyright (c) 2019 Michael Uno
  *
  */
 
