@@ -34,21 +34,27 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
         add_action( 'init', array( $this, 'processDownload' ) );
 
     }
-
         /**
-         * @param $iDownloadID
+         * @callback    action  init
          */
         public function processDownload() {
 
+            // Required information
             $iDownloadID   = $_GET[ 'id' ];
             $_aFiles       = edd_get_download_files( $iDownloadID );
             $_iFileIndex   = 0;
             foreach( $_aFiles as $_iIndex => $_aFile ) {
                  $_iFileIndex = $_iIndex ;
             }
+
+            // Issue a payment
+
+            /// Disable administrator notifications
             add_filter( 'edd_admin_notices_disabled', '__return_true' );
             remove_action( 'edd_complete_purchase', 'edd_trigger_purchase_receipt', 999 );
             remove_action( 'edd_admin_sale_notice', 'edd_admin_email_notice', 10 );
+
+            /// Add a payment record
             $_iPayment     = $this->___addPayment( $iDownloadID );
             if ( ! $_iPayment ) {
                 exit;
@@ -56,9 +62,10 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
             $_oEDDDownload = new EDD_Download( $iDownloadID );
             $_oEDDDownload->increase_sales( 1 );
 
+            // Issue a download url
             $_sDownloadURL = edd_get_download_file_url(
                 edd_get_payment_key( $_iPayment ),  // payment key
-                edd_get_payment_user_email( $_iPayment ),             // email - not sure if it can be empty
+                edd_get_payment_user_email( $_iPayment ),  // email - not sure if it can be empty
                 $_iFileIndex,   // file key
                 $iDownloadID,
                 false   // price id
@@ -70,16 +77,25 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
                 $_sDownloadURL
             );
 
-            wp_redirect( $_sDownloadURL );
-            exit;
+            // Process download
+            exit( wp_redirect( $_sDownloadURL ) );
 
         }
-
+            /**
+             * @param $iDownloadID
+             *
+             * @return int
+             */
             private function ___addPayment( $iDownloadID ) {
 
+                $_iWPUserID = get_current_user_id();
+                $_oWPUser   = get_userdata( $_iWPUserID );
+                $_sEmail    = false === $_oWPUser
+                    ? null
+                    : $_oWPUser->user_email;
                 $_aPaymentData = array(
                		'price' 		=> 0,
-               		'user_email' 	=> null,
+               		'user_email' 	=> $_sEmail,
                		'purchase_key' 	=> strtolower( md5( uniqid() ) ),
                		'currency' 		=> edd_get_currency(),
                		'downloads' 	=> array(
@@ -90,8 +106,8 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
                         )
                     ),
                		'user_info' 	=> array(
-               		    'id'            => null,
-               		    'email'         => null,
+               		    'id'            => get_current_user_id(),
+               		    'email'         => $_sEmail,
                		    'first_name'    => null,
                		    'last_name'     => null,
                		    'discount'      => null,

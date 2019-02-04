@@ -25,7 +25,7 @@ class ImmediateFreeDownloadForEDD_Registry_Base {
     const AUTHOR_URI     = 'http://en.michaeluno.jp';
     const PLUGIN_URI     = 'https://github.com/michaeluno/immediate-free-download-for-easy-digital-downloads';
     const COPYRIGHT      = 'Copyright (c) 2019, Michael Uno';
-    const LICENSE        = '<COPYRIGHT_TYPE>';
+    const LICENSE        = 'GPL v2 or later';
     const CONTRIBUTORS   = '';
  
 }
