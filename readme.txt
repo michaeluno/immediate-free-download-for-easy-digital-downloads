@@ -17,7 +17,12 @@ Do you want to set up a download button for free files? Easy Digital Downloads h
 
 This plugin bypasses that process and lets them download the file right away.
 
-Also, each download is logged so you can know how many times your files are downloaded.
+= Supports Download Counts =
+
+Each download is counted as a payment as EDD natively handles. So you know how many times your files are downloaded. If it is downloaded by a logged-in user, you would know who downloaded what.
+
+= Lightweight =
+This is super lightweight and does not insert any plugin specific options.
 
 == Installation ==
 
@@ -27,9 +32,11 @@ Also, each download is logged so you can know how many times your files are down
 
 == Frequently asked questions ==
 
-<h4>How can I change the button text?</h4>
+= How can I change the button text? =
 Go to `Dashboard` -> `Downloads` -> `Settings` -> `Misc` -> `Button Text`. Change the value for the `Complete Free Purchase Text` option.
 
+= What happens when multiple files are set up for a product? =
+Only the button for the first item will be displayed.
 
 == Other Notes ==
 
