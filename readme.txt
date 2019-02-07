@@ -5,7 +5,7 @@ Tags:               EDD, Easy Digital Downloads, free download, download, downlo
 Requires at least:  3.4
 Requires PHP:       5.2.4
 Tested up to:       5.0.3
-Stable tag:         1.0.0
+Stable tag:         1.0.1
 License:            GPLv2 or later
 License URI:        http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,5 +37,8 @@ Go to `Dashboard` -> `Downloads` -> `Settings` -> `Misc` -> `Button Text`. Chang
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 - 2019/02/07 =
+- Fixed an issue that the product was not associated with the order details (payment).
+
+= 1.0.0 - 2019/02/04 =
 - Released. 

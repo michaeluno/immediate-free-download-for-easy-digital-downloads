@@ -5,7 +5,7 @@
  * Description:    Allows your site visitors to download free files right away without making them go to the checkout page.
  * Author:         Michael Uno
  * Author URI:     http://en.michaeluno.jp
- * Version:        1.0.0
+ * Version:        1.0.1
  * Text Domain:    immediate-free-download-for-easy-digital-downloads
  * Domain Path:    language
  */
@@ -17,7 +17,7 @@
  */
 class ImmediateFreeDownloadForEDD_Registry_Base {
  
-    const VERSION        = '1.0.0';    // <--- DON'T FORGET TO CHANGE THIS AS WELL!!
+    const VERSION        = '1.0.1';    // <--- DON'T FORGET TO CHANGE THIS AS WELL!!
     const NAME           = 'Immediate Free Download for Easy Digital Downloads';
     const DESCRIPTION    = 'Allows your site visitors to download free files right away without making them go to the checkout page.';
     const URI            = 'https://github.com/michaeluno/immediate-free-download-for-easy-digital-downloads';

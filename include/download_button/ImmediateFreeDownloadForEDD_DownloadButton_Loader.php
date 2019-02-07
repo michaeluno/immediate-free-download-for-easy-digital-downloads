@@ -17,7 +17,6 @@ class ImmediateFreeDownloadForEDD_DownloadButton_Loader {
     public function __construct() {
         new ImmediateFreeDownloadForEDD_DownloadButton;
         new ImmediateFreeDownloadForEDD_Event_IssueDownloadURL;
-        new ImmediateFreeDownloadForEDD_Event_AllowDownload;
     }
 
 }

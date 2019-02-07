@@ -19,9 +19,6 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
      */
     public function __construct() {
 
-        if ( isset( $_GET[ 'immediate' ] ) ) {
-            return;
-        }
         if ( ! isset( $_GET[ 'action' ], $_GET[ 'nonce' ], $_GET[ 'id' ], $_GET[ 'call_id' ] ) ) {
             return;
         }
@@ -59,8 +56,6 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
             if ( ! $_iPayment ) {
                 exit;
             }
-            $_oEDDDownload = new EDD_Download( $iDownloadID );
-            $_oEDDDownload->increase_sales( 1 );
 
             // Issue a download url
             $_sDownloadURL = edd_get_download_file_url(
@@ -69,12 +64,6 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
                 $_iFileIndex,   // file key
                 $iDownloadID,
                 false   // price id
-            );
-            $_sDownloadURL = add_query_arg(
-                array(
-                    'immediate' => true,
-                ) + $_GET,
-                $_sDownloadURL
             );
 
             // Process download
@@ -88,9 +77,10 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
              */
             private function ___addPayment( $iDownloadID ) {
 
-                $_iWPUserID = get_current_user_id();
-                $_oWPUser   = get_userdata( $_iWPUserID );
-                $_sEmail    = false === $_oWPUser
+                $_oEDDDownload = new EDD_Download( $iDownloadID );
+                $_iWPUserID    = get_current_user_id();
+                $_oWPUser      = get_userdata( $_iWPUserID );
+                $_sEmail       = false === $_oWPUser
                     ? null
                     : $_oWPUser->user_email;
                 $_aPaymentData = array(
@@ -113,7 +103,24 @@ class ImmediateFreeDownloadForEDD_Event_IssueDownloadURL {
                		    'discount'      => null,
                		    'address'       => null,
                     ),
-               		'cart_details' 	=> array(),
+               		'cart_details' 	=> array(
+               		    array(
+               		        'name' => $_oEDDDownload->get_name(),
+                            'id'    => $iDownloadID,
+                            'item_number' => array(
+                                'id'    => $iDownloadID,
+                                'options' => array(),
+                                'quantity' => 1,
+                            ),
+                            'item_price' => 0,
+                            'quantity'   => 1,
+                            'discount'   => 0,
+                            'subtotal'   => 0,
+                            'tax'        => 0,
+                            'fees'       => array(),
+                            'price'      => 0,
+                        ),
+                    ),
                		'status' 		=> 'publish'
                	);
                	return ( integer ) edd_insert_payment( $_aPaymentData );
